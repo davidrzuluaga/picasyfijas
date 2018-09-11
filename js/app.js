@@ -9,6 +9,14 @@ function numbergenerate () {
 };
 
 var numbermachine = numbergenerate();
+
+$('.modal-footer a').on('click', function(){ 
+    $("tbody").empty();
+    numbermachine = numbergenerate();
+    console.log(numbermachine);
+    $('.modal').fadeOut();
+});
+
 console.log(numbermachine);
 
 $('input').on('keyup', function (e) {
@@ -26,7 +34,7 @@ $('input').on('keyup', function (e) {
         return results.length == 0;
     }
 
-   if (e.which == 13) {
+    if (e.which == 13) {
         if (numberarray.length == 4 && unique4()) {
             function fijas (){
                fijas = 0;
@@ -39,28 +47,29 @@ $('input').on('keyup', function (e) {
             function picas (){
                 picas = 0;
                 for (i=0; i < 4; i++){
-                    var even = function(element) {
+                    var match = function(element) {
                         return element == numbermachine[i];
                       };
-                    numberarray.some(even) ? picas++ : 0;
+                    numberarray.some(match) ? picas++ : 0;
                 };
                 return picas;
             };
            
-
-            $('.howto span').css('color', 'black');           
+            $('.howto span').css('color', 'black');  
+            $('input').css('border-color', 'initial');
             $('.table').show();
 
-            $('tbody').append('<tr>');           
-            $('tbody').append('<td>'+number+'<td>');
-            $('tbody').append('<td>'+Math.abs((+fijas())-(+picas()))+'</td>');
-            $('tbody').append('<td>'+fijas+'</td>');
-            $('tbody').append('</tr>');
+            $('tbody').append('<tr><td>'+number+'</td><td>'+Math.abs((+fijas())-(+picas()))+'</td><td>'+fijas+'</td></tr>');
+           
+            if (fijas == 4) {
+                $('.modal').fadeIn(); 
+            };
             
             $('input').val("");
-       } else {
+            
+        } else {
            $('.howto span').css('color', 'red');
-       }
-
-   };
+           $('input').css('border-color', 'red');
+        }
+    };
 });
