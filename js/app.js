@@ -43,7 +43,7 @@ $('input').on('keyup', function (e) {
                }
                return fijas;
             };
-
+ 
             function picas (){
                 picas = 0;
                 for (i=0; i < 4; i++){
