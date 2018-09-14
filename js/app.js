@@ -19,10 +19,11 @@ $('.modal-footer a').on('click', function(){
 
 console.log(numbermachine);
 
-$('input').on('keyup', function (e) {
-    var number = $(this).val();
-    var numberarray = number.split("");
 
+$('input').on('keyup', function (e) {
+    var number = $('#number').val();
+    var numberarray = number.split("");
+    
     function unique4 (){
         sorted_arr = numberarray.slice().sort(); 
         results = [];
@@ -33,28 +34,29 @@ $('input').on('keyup', function (e) {
         }
         return results.length == 0;
     }
+    
+    function fijas (){
+       fijas = 0;
+       for (i = 0; i < 4; i++){
+           numberarray[i] == numbermachine[i] ? fijas++ : 0;
+       }
+       return fijas;
+    };
+    
+    function picas (){
+        picas = 0;
+        for (i=0; i < 4; i++){
+            var match = function(element) {
+                return element == numbermachine[i];
+              };
+            numberarray.some(match) ? picas++ : 0;
+        };
+        return picas;
+    };
 
     if (e.which == 13) {
         if (numberarray.length == 4 && unique4()) {
-            function fijas (){
-               fijas = 0;
-               for (i = 0; i < 4; i++){
-                   numberarray[i] == numbermachine[i] ? fijas++ : 0;
-               }
-               return fijas;
-            };
 
-            function picas (){
-                picas = 0;
-                for (i=0; i < 4; i++){
-                    var match = function(element) {
-                        return element == numbermachine[i];
-                      };
-                    numberarray.some(match) ? picas++ : 0;
-                };
-                return picas;
-            };
-           
             $('.howto span').css('color', 'black');  
             $('input').css('border-color', 'initial');
             $('.table').show();
